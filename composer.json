@@ -1,0 +1,9 @@
+{
+    "autoload": {
+        "psr-4": {"IESElCaminas\\": "src"}
+    },
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0",
+        "symfony/console": "^3.4"
+    }
+}
