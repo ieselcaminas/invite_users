@@ -34,7 +34,7 @@ class InviteUsersCommand extends Command
         $this -> getCredentials($input, $output);
         try{
             $mail = new MailServer($this->config, $this->email, $this->password);
-            $mail->send("sdsf", "victorponz@gmail.com", "" , "hola", $this->email, $this->password);
+            $mail->send("título", "victorponz@gmail.com", "" , "body", $this->email, $this->password);
         }catch (Swift_TransportException $swift_TransportException){
             $message = "S'ha produít un error en connectar\n";
             $message .= "Comproveu l'usuari i contrasenya\n";
