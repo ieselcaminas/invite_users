@@ -15,6 +15,8 @@ use IESElCaminas\MailServer;
  */
 class Command extends SymfonyCommand
 {
+    protected $email;
+    protected $password;
 
     public function __construct()
     {
@@ -32,12 +34,12 @@ class Command extends SymfonyCommand
         //$output -> write($this -> getGreeting());
         $helper = $this->getHelper('question');
         $question = new Question('Email: ', '');
-        $this->email = $helper->ask($input, $output, $question);
+        $this->email = ($helper->ask($input, $output, $question) ?? "");
         $question = new Question('Contraseña: ');
         $question->setHidden(true);
         $question->setHiddenFallback(false);
     
-        $this->password = $helper->ask($input, $output, $question);
+        $this->password = ($helper->ask($input, $output, $question) ?? "");;
         
     }
 
