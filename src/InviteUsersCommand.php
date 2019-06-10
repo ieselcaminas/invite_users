@@ -33,6 +33,7 @@ class InviteUsersCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $ok = true;
         $this -> getCredentials($input, $output);
      
         try{
@@ -59,10 +60,17 @@ class InviteUsersCommand extends Command
                     $message .= "Més informació en https://myaccount.google.com/lesssecureapps";
                     $output->writeln("<error>$message</error>");
                     //echo $swift_TransportException->getCode();// . " " . $swift_TransportException->getMessage();
+                    $ok = false;
+                    break;
                 }catch(\Exception $e){
                     $output->writeln("<error>" . $e->getMessage() . "</error>");
+                    $ok = false;
+                    break;
                 }
+
             }
+            if (!$ok)
+                break;
         }
     }
 }
