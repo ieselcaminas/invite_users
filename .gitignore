@@ -1,5 +1,6 @@
 vendor/
 .vscode/
 testCsv.php
+testBody.php
 csv/
 !csv/exemple.csv
