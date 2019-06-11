@@ -9,6 +9,7 @@ use IESElCaminas\MailServer;
 use IESElCaminas\ReadCSV;
 
 use IESElCaminas\Command;
+use IESElCaminas\Cipher;
 
 /**
  * Author: Chidume Nnamdi <kurtwanger40@gmail.com>
@@ -35,7 +36,8 @@ class InviteUsersCommand extends Command
     {
         $ok = true;
         $this -> getCredentials($input, $output);
-     
+        $cipher = new Cipher($this->config);
+
         try{
             $mail = new MailServer($this->config, $this->email, $this->password);
         }catch(Swift_RfcComplianceException $e) {
@@ -44,7 +46,9 @@ class InviteUsersCommand extends Command
             $output->writeln("<error>" . $e->getMessage() . "</error>");
         }
         $generator = $this->readCsv->genCsvFile();
+        $hayCSVs = false;
         foreach ($generator as $file) {
+            $hayCSVs = true;
             echo $file . "\n";
             $lines = $this->readCsv->read($file);
             
@@ -52,7 +56,10 @@ class InviteUsersCommand extends Command
                list($correo, $nia) = $line;
                try{
                     //$mail->send("título", "victorponz@gmail.com", "" , "body", $this->email, $this->password);
+                    $hash = $cipher->getHash($nia);
+                    $body = $mail->getUserEmailBody($nia, $hash);
                     $output->writeln("Enviant correu a " . $correo . " - " . $nia);
+                    $output->writeln($body);
                 }catch (Swift_TransportException $swift_TransportException){
                     $message = "S'ha produít un error en connectar\n";
                     $message .= "Comproveu l'usuari i contrasenya\n";
@@ -71,6 +78,13 @@ class InviteUsersCommand extends Command
             }
             if (!$ok)
                 break;
+            else{
+                //renombrar el archivo para no volver a procesarlo
+                $this->readCsv->remaneCSVFile($file);
+            }
+        }
+        if (!$hayCSVs){
+            $output->writeln("<info>No hi ha arxius que processar</info>");
         }
     }
 }

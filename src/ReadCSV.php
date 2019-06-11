@@ -35,4 +35,7 @@ class ReadCSV{
         }
         return false;
     }
+    public function remaneCSVFile($file){
+        rename('../csv/' . $file, '../csv/' . $file . ".fet");
+    }
 }
