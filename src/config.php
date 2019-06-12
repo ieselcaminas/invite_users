@@ -12,4 +12,8 @@ return [
     </ol><p>Salutacions</p>",
     'secret_key' => 'cef3345795b352342311516b89961f2fbf3691ed',
     'school_id' => '13090',
+    'log' =>[
+        'channel' => 'inviteUsers',
+        'level' => \Monolog\Logger::INFO
+    ]
 ];
