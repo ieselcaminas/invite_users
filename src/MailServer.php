@@ -37,17 +37,15 @@ class MailServer
     }
 
     /**
-     * @param string $asunto
      * @param string $mailTo
-     * @param string $nameTo
      * @param string $text
      */
-    public function send(string $asunto, string $mailTo, string $nameTo, string $text, string $from) 
+    public function send(string $mailTo, string $text, string $from) 
     {
         // Create a message
-        $message = (new Swift_Message($asunto))
+        $message = (new Swift_Message($this->config['email_subject']))
             ->setFrom([$from => $this->config['name']])
-            ->setTo([$mailTo => $nameTo])
+            ->setTo([$mailTo])
             ->setBody($text, 'text/html');
 
         // Send the message; 

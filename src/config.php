@@ -4,6 +4,7 @@ return [
     'smtp_port' => '587',
     'smtp_security' => 'tls',
     'name' => 'IES El Caminás GitHub for Education',
+    'email_subject' => "IES El Caminàs GitHub for Education",
     'email_body' => "<h1>IES El Caminàs GitHub for Education.</h1>
     <ol>Per activar el teu compte a GitHub for Education:
     <li>Si encara no has creat el teu compte en GitHub amb el correu de l'institut, crea't un compte</li>
